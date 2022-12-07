@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The events exercise represents a simplified version of the event-sourcing concepts that we use internally at Utility Warehouse. At UW we consume steams of events, and write changes from said events into a database (a projection) to build a view of the "current state" of our data, instead of it's time-series representation.
+The events exercise represents a simplified version of the event-sourcing concepts that we use internally at Utility Warehouse. At UW we consume steams of events (from Apache Kafka), and write changes from said events into a database (a projection) to build a view of the "current state" of our data, instead of it's time-series representation.
 
 For example, an event stream might contain a number of `EmailChangedEvents` to describe how an account's associated email has changed over time. However, our microservice may only be interested in the user's current email address. If we update our database every time that we encounter an event of this type, once we have processed the full event stream the database should contain the current email address for a given account and will continue to update for the future.
 
@@ -26,7 +26,7 @@ With your projection in place, it should contain the current (most up-to-date) I
 - `UserGainedBadgeEvent` - _A user has gained a badge of a certain colour. Users can have any number of badges of each colour. Accounts are created with zero badges of each colour._
 - `UserLostBadgeEvent` - _A user has lost a badge of a certain colour. The number of badges of each type may not fall below zero._
 
-Events are modelled in protobuf, but have been compiled into Go structures found within the `internal/accounts/accounts.pb.go` file for your convenient.
+Events are [modelled in protobuf](https://developers.google.com/protocol-buffers), but have been compiled into Go structures found within the `internal/accounts/accounts.pb.go` file for your convenience.
 
 You'll find the event stream code within `internal/events/stream.go`. By providing an implementation of the `StreamReader` interface to the `Read()` function of the `Stream` object, you'll be able to read events one at a time. For example...
 
