@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package accounts;
+
+option go_package = "internal/accounts";
+
+// UserAccountCreatedEvent indicates that a new user account has been created.
+message UserAccountCreatedEvent {
+  string user_id = 1;
+}
+
+// UserAccountUpdatedEvent updates a user account providing or updating additional user information.
+message UserAccountUpdatedEvent {
+  string user_id = 1;
+  string full_name = 2;
+  string email = 3;
+}
+
+// UserGainedBadgeEvent indicates that a user has gained a badge of a certain colour.
+message UserGainedBadgeEvent {
+  string user_id = 1;
+  BadgeColour badge_colour = 2;
+}
+
+// UserLostBadgeEvent indicates that a user has lost a badge of a certain colour.
+message UserLostBadgeEvent {
+  string user_id = 1;
+  BadgeColour badge_colour = 2;
+}
+
+// BadgeColour is an enum containing possible colours for badges.
+enum BadgeColour {
+  RED = 0;
+  GREEN = 1;
+  BLUE = 2;
+}
